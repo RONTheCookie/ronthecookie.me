@@ -1,0 +1,34 @@
+<h1>moments of joseph</h1>
+<div class="theimage">
+</div>
+<script>
+    var list = `https://i.ronthecookie.me/gkRx6k4.png
+https://i.ronthecookie.me/oj2xDWu.png
+https://i.ronthecookie.me/oO7AzE0.png
+https://i.ronthecookie.me/qPvKr7p.png
+https://i.ronthecookie.me/iYzvwce.png
+https://i.ronthecookie.me/TDBSNxc.png
+https://i.ronthecookie.me/pdMpKhD.png
+https://i.ronthecookie.me/rhmbQhM.png
+https://i.ronthecookie.me/MvzTykn.png
+https://i.ronthecookie.me/9UVBvJZ.png
+https://i.ronthecookie.me/mRlCrh0.png
+https://i.ronthecookie.me/m0WO34c.png`.split("\n");
+var i = 0;
+setInterval(()=>{
+    i++;
+    if (list.length == i) i = 0;
+    document.querySelector(".theimage").innerHTML = `<img src="${list[i]}">`;
+}, 2000);
+</script>
+<style>
+    body {
+        background-color: black;
+        overflow: hidden;
+        color: white;
+    }
+    .theimage {
+        padding-bottom: 30%;
+    }
+</style>
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/vVTP0DOL_2Q?rel=0&amp;controls=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
