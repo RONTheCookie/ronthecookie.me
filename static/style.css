@@ -17,3 +17,7 @@ main {
 .socialicon {
     padding: 1%;
 }
+
+.page-footer {
+    padding-top: 0px !important;
+}
