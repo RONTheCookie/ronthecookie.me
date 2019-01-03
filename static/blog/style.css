@@ -1,0 +1,24 @@
+html {
+    background: #eeeeee;
+}
+* {
+    font-family: monospace;
+}
+#title {
+    text-align: center;
+}
+#posts {
+    font-size: 1.2em;
+}
+#postTitle {
+    font-size: 1.5em;
+}
+p {
+    font-size: 1.1em;
+}
+.flexts {
+    display:flex;
+}
+.inlined{
+    display:inline;
+}
