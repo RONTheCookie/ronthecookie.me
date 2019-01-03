@@ -1,2 +1,2 @@
-FROM nginx
-COPY static /usr/share/nginx/html
+FROM httpd:2.4
+COPY ./static/ /usr/local/apache2/htdocs/
