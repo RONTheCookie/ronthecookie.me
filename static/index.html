@@ -4,237 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>ronthecookie</title>
+    <link rel="stylesheet" href="style.css">
+    <title>Ron B</title>
 </head>
 <body>
-    <div class="container">
-        <h1 id="title">ronthecookie.me</h1>
-    </div>
-    <div class="container" id="sh">
-        <p class="cli-text">Linux website 5.0.0-ron1-1-RON #1 SMP PREEMPT x86_64 GNU/Linux</p>
-        <p class="cli-text">The programs included with the Ron GNU/Linux system are free software.</p>
-        <p class="cli-text"><span style="font-size: 0px;">.</span></p>
-        <p class="cli-text">Ron GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent</p>
-        <p class="cli-text">permitted by applicable law.</p>
-        <p class="cli-text"><span style="font-size: 0px;">.</span></p>
-        <p class="cli-text">Last login: <span id="loggedin-time">???</span> from <span id="user-ip">???</span></p>
-        <p class="cli-text">Type "help" for a list of commands.</p>
-        <p class="cli-text"><span style="font-size: 0px;">.</span></p>
-        <p class="cli-text" id="shell">ron@website:~$ <input class="command" id="command" class="cli-text" autofocus></p>
-        <p class="cli-text" id="output"></p>
-    </div>
+    <main class="c">
+        <p class="title">Ron B</p>
+        <ul class="links c-tiny">
+            <li><a href="//twitter.com">twitter</a></li>
+            <li><a href="mailto:me@ronthecookie.me">email</a></li>
+            <li><a href="//github.com/ronthecookie">github</a></li>
+            <li><a href="//blog.ronthecookie.me">blog</a></li>
+        </ul>
+        <p class="subtitle">projects</p>
+        <div class="flex">
+            <!-- that empty div fixes some bug, css is damn weird. -->
+            <div></div> 
+            <div class="card shadow project">
+                <p class="subsubtitle"><a href="//abandoned.ronthecookie.me">abandoned projects</a></p>
+                <p>find your old, outdated github repos</p>
+            </div>
+            <div class="card shadow project">
+                <p class="subsubtitle"><a href="https://github.com/RONTheCookie/sdab">sdab - Selfhosted Docker Automated Builds</a></p>
+                <p>sdab is a Node.js program to automatically build Dockerfiles that are in Github repos.</p>
+            </div>
+        </div>
+        <iframe src="//blog.ronthecookie.me" frameborder="0" class="w-100 blogframe"></iframe>
+    </main>
 </body>
-<script>
-    const NLCMD = "<br><br><br>"
-    const cmds = {
-        help: {
-            description: "show this msg", name: "help", do: ({ args }) => {
-                return Object.values(cmds).map(cmd => `${cmd.name} - ${cmd.description}`).join(NLCMD);
-            }
-        },
-        echo: {
-            description: "echo sanitized", name: "echo", do: ({ args }) => {
-                return escapeHTML(args.join(" "));
-            }
-        },
-        echohtml: { description: "echo with html", name: "echohtml", do: ({ args }) => args.join(" ") },
-        eval: { description: "eval js", name: "eval", do: ({ args }) => escapeHTML(simpleInspect(eval(args.join(" ")))) },
-        sh: { description: "run script", name: "sh", do: ({ args }) => {
-            if (args.length !== 1) return "ebadusage: sh <FILE>";
-            let outstr = [];
-            fs[args[0]].content.split("\n").map((l,i) => {
-                const sp_l = l.trim().split(" ");
-                if (!cmds[sp_l[0]]) outstr.push(`${args[0]}: line ${i}: ${sp_l[0]}: command not found, continuing`);
-                outstr.push(cmds[sp_l[0]].do({args: sp_l.slice(1)}));
-            })
-            return outstr.join("\n");
-        }},
-        cat: {description: "read file into out", name: "cat", do: ({args}) => {
-            if (args.length !== 1) return "ebadusage: cat <FILE>";
-            const fn = args[0];
-            if (!fs[fn]) return "enofile: that file doesnt exist";
-            else return fs[fn].content.split("\n").map(a => escapeHTML(a)).join(NLCMD);
-        }}
-    };
-    const fs = {
-        "/motd": {
-            type: "file", 
-            content: `echohtml <img src=cookie.png>
-            echo Welcome to my little website. It is currently very simple and doesn't have many features.
-            echo Feel free to jump into the source by right clicking then pressing "View Page Source" on most browsers.
-            echo You could also just use the "eval" command that is present in here to execute some JS,
-            echo Some nice variables to play around with are "cmds", "fs" and the emulateCmd function
-            echo For example: $ eval emulateCmd("echo Hello!") outputs:
-            echo Hello!
-            echohtml P.S: I have a <a href="https://blog.ronthecookie.me">blog</a>!`
-        },
-        "/home/ron/findme": {
-            type: "file",
-            content: `E-Mail: me [at] ronthecookie me
-Discord: RONTheCookie#8697
-Twitter: @ronthecookie
-Reddit: /u/ronthecookie
-GitHub: RONTheCookie`
-        }
-    }
-    const autorun = 
-`sh /motd
-cat /home/ron/findme`;
-
-    // Generate a fantasy date if one isn't stored in localStorage.
-    const date = new Date();
-    let lsval = parseInt(localStorage.getItem("shLastLoggedIn"), 10);
-    if (lsval) date.setTime(lsval);
-    else {
-        const rand = Math.random() * (20 - 1) + 1;
-        if (date.getDate() - rand < 1) date.setMonth(date.getMonth() - 1);
-        else date.setDate(date.getDate() - rand);
-    }
-    // Set it for next time
-    localStorage.setItem("shLastLoggedIn", Date.now());
-    // Update the HTML
-    document.getElementById("loggedin-time").innerHTML =
-        date.toUTCString()
-        .split(",").join("")
-        .replace("GMT", "")
-        .replace(new Date().getFullYear(), "");
-    
-    
-    // Voodoo WebRTC magic to get User IP -- https://ourcodeworld.com/articles/read/257/how-to-get-the-client-ip-address-with-javascript-only
-    var myPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection || window.webkitRTCPeerConnection;
-    var pc = new myPeerConnection({
-        iceServers: []
-    }),
-        noop = function () { },
-        ipRegex = /([0-9]{1,3}(\.[0-9]{1,3}){3}|[a-f0-9]{1,4}(:[a-f0-9]{1,4}){7})/g,
-        key;
-
-    function iterateIP(ip) {
-        // Here we set our HTML element:
-        document.getElementById("user-ip").innerHTML = ip;
-    }
-
-    //create a bogus data channel
-    pc.createDataChannel("");
-
-    // create offer and set local description
-    pc.createOffer().then(function (sdp) {
-        sdp.sdp.split('\n').forEach(function (line) {
-            if (line.indexOf('candidate') < 0) return;
-            line.match(ipRegex).forEach(iterateIP);
-        });
-
-        pc.setLocalDescription(sdp, noop, noop);
-    }).catch(function (reason) {
-        // An error occurred, so handle the failure to connect
-        document.getElementById("user-ip").innerHTML = "cannot get IP";
-    });
-
-    //listen for candidate events
-    pc.onicecandidate = function (ice) {
-        if (!ice || !ice.candidate || !ice.candidate.candidate || !ice.candidate.candidate.match(ipRegex)) return;
-        ice.candidate.candidate.match(ipRegex).forEach(iterateIP);
-    };
-    // Here we handle commands 
-
-       let input = document.getElementById("command");
-        function simpleInspect(t) {
-            if (typeof t !== "string") t = JSON.stringify(t, null, 4);
-            return t;  
-        }
-        function endsel() {
-            input.focus();
-            const len = input.value.length;
-            input.setSelectionRange(len, len);
-        }
-        function nextShell() {
-            const inputele = '<input class="command" id="command" class="cli-text" autofocus>';
-            const mkn = () => `\n<p class="cli-text" id="shell">ron@website:~$ ${inputele}</p>
-        <p class="cli-text" id="output"></p>`;
-            const rmid = (id, rplw = "") => {
-                const shoh = document.getElementById(id).outerHTML;
-                document.getElementById(id).outerHTML = shoh.replace(`id="${id}"`, rplw);
-            }
-            // disable the old prompt and output while preserving prev user input
-            rmid("shell");
-            rmid("output");
-            const oldval = input.value;
-            document.getElementById("command").outerHTML = escapeHTML(oldval);
-
-            // add the new shell from mkn output
-            const shin = document.getElementById("sh").innerHTML;
-            document.getElementById("sh").innerHTML = shin + mkn();
-            // focus new command line and update the input variable so it points to the new element
-            document.getElementById("command").focus();
-            input = document.getElementById("command");
-        }
-        setInterval(endsel, 1);
-        function processCmd() {
-            const val = input.value.trim();
-            const writeOut = t => {
-                if (typeof t !== "string") t = JSON.stringify(t, null, 4);
-                document.getElementById("output").innerHTML = t.split("\n").join(NLCMD);
-            }
-            if (val === "") return nextShell();
-            const cmdAN = val.split(" ")[0].toLowerCase();
-            const args = val.split(" ").slice(1);
-            if (!cmds[cmdAN]) {
-                writeOut(`sh: ${cmdAN}: command not found`);
-            } else writeOut(cmds[cmdAN].do({ args }));
-            nextShell();
-        }
-        window.addEventListener("keypress", e => {
-            if (e.key === "Enter") {
-                processCmd();
-            }
-        });
-        function emulateCmd(cmdline) {
-            input.value = cmdline;
-            processCmd();
-        }
-        function escapeHTML(text) { //stackoverflow https://stackoverflow.com/questions/24816/escaping-html-strings-with-jquery
-            'use strict';
-            return text.replace(/[\"&<>]/g, function (a) {
-                return { '"': '&quot;', '&': '&amp;', '<': '&lt;', '>': '&gt;' }[a];
-            });
-        } 
-    autorun.split("\n").forEach(emulateCmd);
-</script>
-<style>
-a {
-    color: orange;
-}
-body {
-    color: #00FF00;
-    background: #1d1d1d;
-}
-@media screen and (min-width: 995px) {
-    .container {
-        margin: 0 auto;
-        max-width: 50vw;
-        padding: 0 2.0rem;
-        position: relative;
-        width: 100%;
-        border: none;
-    }
-}
-#title {
-    text-align: center;
-    font-weight: bold;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-}
-.cli-text {
-    font-family: monospace;
-    line-height: 7px;
-    padding: -7px 0 0 0;
-    font-size: 11pt;
-}
-.command {
-    background: transparent;
-    border: none;
-    color: inherit;
-    font: inherit;
-    width: 50%;
-}
-</style>
 </html>
