@@ -1,4 +1,4 @@
-FROM abiosoft/caddy
+FROM abiosoft/caddy:no-stats
 
 RUN ["mkdir", "/usr/local/webstatic"]
 WORKDIR /usr/local/webstatic
