@@ -1,4 +1,4 @@
 # ronthecookie.me
-Website to show off my skills built using vanilla JavaScript and no frameworks.
+website with links to some of my online accts
 
-Dockerfile runs on port 80
+the Dockerfile runs on port 3000
