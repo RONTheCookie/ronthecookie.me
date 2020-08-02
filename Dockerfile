@@ -1,6 +1,5 @@
-FROM abiosoft/caddy:no-stats
+FROM caddy:2-alpine
 
-RUN ["mkdir", "/usr/local/webstatic"]
-WORKDIR /usr/local/webstatic
+COPY Caddyfile /etc/caddy/Caddyfile
 
-COPY ./static/ /usr/local/webstatic
+#COPY static /var/www/html
