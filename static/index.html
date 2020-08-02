@@ -5,6 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
 		<link rel="stylesheet" href="chota.min.css" />
+		<link rel="stylesheet" href="balloon.css" />
 		<link rel="stylesheet" href="style.css" />
 		<title>ronthecookie.me</title>
 	</head>
@@ -13,28 +14,42 @@
 		<div class="container">
 			<div class="spacer"></div>
 			<h1 class="is-center">ronthecookie.me</h1>
-			<div class="row">
-				<div class="col">
-					<a href="#">
-						<details>
-							<summary>discord</summary>
-							ronthecookie#8697
-						</details>
+			<div class="row is-center">
+				<div class="col is-center">
+					<a
+						href="#"
+						aria-label="Copy to Clipboard"
+						data-balloon-pos="up"
+						data-clipboard-text="ronthecookie#8697"
+						id="discord-copy"
+					>
+						discord
 					</a>
 				</div>
-				<div class="col">
+				<div class="col is-center">
 					<a href="//github.com/ronthecookie">github</a>
 				</div>
-				<div class="col">
+				<div class="col is-center">
 					<a href="mailto:me@ronthecookie.me">email</a>
 				</div>
-				<div class="col">
+				<div class="col is-center">
 					<a href="//matrix.to/#/@ron:ronthecookie.me">matrix</a>
 				</div>
-				<div class="col">
+				<div class="col is-center">
 					<a href="//reddit.com/u/ronthecookie">reddit</a>
 				</div>
 			</div>
 		</div>
 	</body>
+	<script src="clipboard.js"></script>
+	<script>
+		const clipboard = new ClipboardJS("#discord-copy");
+		const copyEle = document.querySelector("#discord-copy");
+		clipboard.on("success", e => {
+			copyEle.setAttribute("aria-label", "Copied!");
+			setTimeout(() => {
+				copyEle.setAttribute("aria-label", "Copy to Clipboard");
+			}, 600);
+		});
+	</script>
 </html>

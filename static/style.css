@@ -7,6 +7,13 @@
 	--color-darkGrey: #777;
 }
 
+body.ko {
+	--bg-color: #fcc21b;
+	--bg-secondary-color: #262626;
+	--color-primary: #000000;
+	--font-color: #111111;
+}
+
 body {
 	margin: 0px;
 	font-size: 2em;
