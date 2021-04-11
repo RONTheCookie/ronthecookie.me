@@ -16,17 +16,6 @@
 			<h1 class="is-center">ronthecookie.me</h1>
 			<div class="row is-center">
 				<div class="col is-center">
-					<a
-						href="#"
-						aria-label="Copy to Clipboard"
-						data-balloon-pos="up"
-						data-clipboard-text="ronthecookie#8697"
-						id="discord-copy"
-					>
-						discord
-					</a>
-				</div>
-				<div class="col is-center">
 					<a href="//github.com/ronthecookie">github</a>
 				</div>
 				<div class="col is-center">
@@ -41,15 +30,4 @@
 			</div>
 		</div>
 	</body>
-	<script src="clipboard.js"></script>
-	<script>
-		const clipboard = new ClipboardJS("#discord-copy");
-		const copyEle = document.querySelector("#discord-copy");
-		clipboard.on("success", e => {
-			copyEle.setAttribute("aria-label", "Copied!");
-			setTimeout(() => {
-				copyEle.setAttribute("aria-label", "Copy to Clipboard");
-			}, 600);
-		});
-	</script>
 </html>
